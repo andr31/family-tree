@@ -8,6 +8,8 @@ import {AppComponent} from './app.component';
 import {BranchCreatorComponent} from './branch-creator/branch-creator.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {TreeCreatorComponent} from './tree-creator/tree-creator.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import {TreeCreatorComponent} from './tree-creator/tree-creator.component';
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes, {enableTracing: true}
+    FormsModule,
+    BrowserAnimationsModule,
+    RouterModule.forRoot(appRoutes, {enableTracing: false}
     ),
     AppMaterialModule
   ],

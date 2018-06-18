@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {MatMenuTrigger} from '@angular/material';
 
 @Component({
@@ -8,6 +8,7 @@ import {MatMenuTrigger} from '@angular/material';
 })
 export class TreeCreatorComponent implements OnInit {
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
+  isCreatingBranch = false;
 
   someMethod() {
     this.trigger.openMenu();

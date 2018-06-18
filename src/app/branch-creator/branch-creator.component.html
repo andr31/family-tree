@@ -1,3 +1,20 @@
-<p>
-  branch-creator works!
-</p>
+<div class="branch-creator" *ngIf="displayForm">
+  <form class="container-fluid" (submit)="onSubmit(model)">
+    <div class="row">
+      <div class="col">
+        <mat-form-field>
+          <input matInput placeholder="Name" [(ngModel)]="model.name" name="first">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <mat-form-field>
+          <input matInput placeholder="Surname" [(ngModel)]="model.surName" name="last">
+        </mat-form-field>
+      </div>
+    </div>
+    <button mat-stroked-button type="submit">Submit</button>
+  </form>
+</div>
+
