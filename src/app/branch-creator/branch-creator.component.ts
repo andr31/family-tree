@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {AngularFirestore} from 'angularfire2/firestore';
 
 @Component({
   selector: 'app-branch-creator',
@@ -8,11 +9,13 @@ import {Component, Input, OnInit} from '@angular/core';
 export class BranchCreatorComponent implements OnInit {
   @Input() displayForm: boolean;
   model = {name: '', surName: ''};
+  data = null;
 
-  constructor() {
+  constructor(private db: AngularFirestore) {
   }
 
   ngOnInit() {
+    this.db.collection('tree').valueChanges().subscribe(r => this.data = r);
   }
 
   onSubmit(model) {

@@ -10,6 +10,9 @@ import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {TreeCreatorComponent} from './tree-creator/tree-creator.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
+import * as firebase from 'firebaseConfig';
+import {AngularFireModule} from 'angularfire2';
+import {AngularFirestoreModule} from 'angularfire2/firestore';
 
 @NgModule({
   declarations: [
@@ -22,6 +25,8 @@ import {FormsModule} from '@angular/forms';
     BrowserModule,
     FormsModule,
     BrowserAnimationsModule,
+    AngularFireModule.initializeApp(firebase.firebaseConfig),
+    AngularFirestoreModule,
     RouterModule.forRoot(appRoutes, {enableTracing: false}
     ),
     AppMaterialModule

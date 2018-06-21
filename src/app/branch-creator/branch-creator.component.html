@@ -1,5 +1,5 @@
-<div class="branch-creator" *ngIf="displayForm">
-  <form class="container-fluid" (submit)="onSubmit(model)">
+<div class="container branch-creator" *ngIf="displayForm">
+  <form (submit)="onSubmit(model)">
     <div class="row">
       <div class="col">
         <mat-form-field>
@@ -14,7 +14,21 @@
         </mat-form-field>
       </div>
     </div>
-    <button mat-stroked-button type="submit">Submit</button>
+    <div class="row">
+      <div class="col">
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <button mat-stroked-button type="submit">Submit</button>
+        <p [innerHtml] = "data | json"></p>
+      </div>
+    </div>
   </form>
 </div>
 
