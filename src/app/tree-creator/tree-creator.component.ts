@@ -8,7 +8,6 @@ import {MatMenuTrigger} from '@angular/material';
 })
 export class TreeCreatorComponent implements OnInit {
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
-  isCreatingBranch = false;
 
   someMethod() {
     this.trigger.openMenu();

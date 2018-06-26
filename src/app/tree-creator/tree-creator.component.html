@@ -1,4 +1,4 @@
 <p>TREE SIMULATOR PAGE</p>
-<button mat-raised-button (click)="isCreatingBranch = !isCreatingBranch">Create branch</button>
+<button mat-raised-button (click)="branchCreator.displayForm = !branchCreator.displayForm">Create branch</button>
 
-<app-branch-creator [displayForm]="isCreatingBranch"></app-branch-creator>
+<app-branch-creator [displayForm]="branchCreator.displayForm" #branchCreator></app-branch-creator>
