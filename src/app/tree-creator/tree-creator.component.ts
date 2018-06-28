@@ -1,11 +1,9 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatMenuTrigger} from '@angular/material';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {FamilyNode} from '../branch-creator/FamilyNode';
-import {FamilyNodeDetails} from '../branch-creator/FamilyNodeDetails';
-import {FamilyDatabase} from '../branch-creator/FamilyDatabase';
-import {RootData} from './RootData';
 import {Router} from '@angular/router';
+import {FamilyDatabase} from '../family-database-utility/FamilyDatabase';
+import {FamilyNodeDetails} from '../family-database-utility/FamilyNodeDetails';
 
 @Component({
   selector: 'app-tree-creator',
