@@ -14,6 +14,7 @@ import * as firebase from 'firebaseConfig';
 import {AngularFireModule} from 'angularfire2';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {FireBaseTimestampToDatePipe} from './pipes/firebase-timestamp-to-date.pipe';
+import {ModalEditComponent} from './modals/modal-edit.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import {FireBaseTimestampToDatePipe} from './pipes/firebase-timestamp-to-date.pi
     BranchCreatorComponent,
     PageNotFoundComponent,
     TreeCreatorComponent,
+    ModalEditComponent,
     FireBaseTimestampToDatePipe
   ],
   imports: [
@@ -35,7 +37,8 @@ import {FireBaseTimestampToDatePipe} from './pipes/firebase-timestamp-to-date.pi
     AppMaterialModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ModalEditComponent]
 })
 export class AppModule {
 }

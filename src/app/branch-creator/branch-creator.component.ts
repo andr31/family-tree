@@ -5,6 +5,8 @@ import {of as ofObservable, Observable} from 'rxjs';
 import {FamilyDatabase} from '../family-database-utility/FamilyDatabase';
 import {FamilyNode} from '../family-database-utility/FamilyNode';
 import {FamilyFlatNode} from '../family-database-utility/FamilyFlatNode';
+import {MatDialog} from '@angular/material';
+import {ModalEditComponent} from '../modals/modal-edit.component';
 
 @Component({
   selector: 'app-branch-creator',
@@ -20,19 +22,34 @@ export class BranchCreatorComponent implements OnInit {
   treeControl: FlatTreeControl<FamilyFlatNode>;
   treeFlattener: MatTreeFlattener<FamilyNode, FamilyFlatNode>;
   dataSource: MatTreeFlatDataSource<FamilyNode, FamilyFlatNode>;
+
+  // modal example
+  animal: string;
+  name: string;
+
   hasChild = (_: number, _nodeData: FamilyFlatNode) => _nodeData.expandable;
   private getLevel = (node: FamilyFlatNode) => node.level;
   private isExpandable = (node: FamilyFlatNode) => node.expandable;
   private getChildren = (node: FamilyNode): Observable<FamilyNode[]> => ofObservable(node.children);
 
-  constructor(private database: FamilyDatabase) {
+  constructor(private database: FamilyDatabase, private dialog: MatDialog) {
     this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel,
       this.isExpandable, this.getChildren);
     this.treeControl = new FlatTreeControl<FamilyFlatNode>(this.getLevel, this.isExpandable);
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
-    database.dataChange.subscribe(data => {
-      this.dataSource.data = data;
+    database.dataChange.subscribe(data => this.dataSource.data = data);
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ModalEditComponent, {
+      width: '250px',
+      data: {name: this.name, animal: this.animal}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.animal = result;
     });
   }
 
