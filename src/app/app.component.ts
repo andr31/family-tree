@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+
+declare global {
+  const _: any;
+}
 
 @Component({
   selector: 'app-root',

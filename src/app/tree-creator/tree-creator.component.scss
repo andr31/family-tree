@@ -1,0 +1,18 @@
+.tree-creator {
+  margin-top: 10%;
+
+  .flex-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  mat-radio-button {
+    .mat-radio-outer-circle {
+      border-color: blueviolet;
+    }
+    .mat-radio-inner-circle {
+      background-color: blue;
+    }
+  }
+
+}

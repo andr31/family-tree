@@ -7,6 +7,7 @@ import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {SelectionModel} from '@angular/cdk/collections';
 import {FamilyDatabase} from './FamilyDatabase';
 import {of as ofObservable, Observable} from 'rxjs';
+import {FireBaseTimestampToDatePipe} from '../pipes/firebase-timestamp-to-date.pipe';
 
 @Component({
   selector: 'app-branch-creator',
@@ -15,7 +16,6 @@ import {of as ofObservable, Observable} from 'rxjs';
   providers: [FamilyDatabase]
 })
 export class BranchCreatorComponent implements OnInit {
-  @Input() displayForm: boolean;
   model = {name: '', surName: ''};
   /** Map from flat node to nested node. This helps us finding the nested node to be modified */
   flatNodeMap: Map<FamilyFlatNode, FamilyNode> = new Map<FamilyFlatNode, FamilyNode>();
@@ -83,19 +83,6 @@ export class BranchCreatorComponent implements OnInit {
     this.checklistSelection.isSelected(node)
       ? this.checklistSelection.select(...descendants)
       : this.checklistSelection.deselect(...descendants);
-  }
-
-  /** Select the category so we can insert the new item. */
-  addNewItem(node: FamilyFlatNode) {
-    const parentNode = this.flatNodeMap.get(node);
-    this.database.insertItem(parentNode!, new FamilyNodeDetails());
-    this.treeControl.expand(node);
-  }
-
-  /** Save the node to database */
-  saveNode(node: FamilyFlatNode, itemValue: FamilyNodeDetails) {
-    const nestedNode = this.flatNodeMap.get(node);
-    this.database.updateItem(nestedNode!, itemValue);
   }
 
   ngOnInit() {

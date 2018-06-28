@@ -1,5 +1,7 @@
 export class FamilyNodeDetails {
   name: string;
   surname: string;
-  birthDate: Date;
+  birthdate: number;
+  gender: string;
+  spouse: string;
 }

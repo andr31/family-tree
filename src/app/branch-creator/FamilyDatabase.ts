@@ -22,7 +22,6 @@ export class FamilyDatabase {
       // Build the tree nodes from Json object. The result is a list of `TodoItemNode` with nested
       //     file node as children.
       const data = this.buildFileTree(r, 0);
-
       // Notify the change.
       this.dataChange.next(data);
     });
@@ -40,22 +39,19 @@ export class FamilyDatabase {
       if (v === null || v === undefined) {
         // no action
       } else if (typeof v === 'object') {
-        node.children = this.buildFileTree(v, level + 1);
+        node.children = this.buildFileTree(v.children, level + 1);
       } else {
         node.item = v;
       }
       data.push(node);
     });
+    console.log(data);
     return data;
   }
 
   /** Add an item to to-do list */
-  insertItem(parent: FamilyNode, name: FamilyNodeDetails) {
-    const child = <FamilyNode>{item: name};
-    if (parent.children) {
-      parent.children.push(child);
-      this.dataChange.next(this.data);
-    }
+  insertItem(item: Object) {
+    return this.db.collection('tree').add(item);
   }
 
   updateItem(node: FamilyNode, name: FamilyNodeDetails) {

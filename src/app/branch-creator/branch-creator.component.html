@@ -1,68 +1,76 @@
 <div class="container branch-creator">
-  <h3>Family Tree example</h3>
-  <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-    <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
-      <button mat-icon-button disabled></button>
-      <mat-checkbox class="checklist-leaf-node"
-                    [checked]="checklistSelection.isSelected(node)"
-                    (change)="checklistSelection.toggle(node);">{{node.item}}
-      </mat-checkbox>
-    </mat-tree-node>
+  <h3 class="branch-header">My Family Tree</h3>
+  <div class="tree-section">
+    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+      <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
+      </mat-tree-node>
 
-    <mat-tree-node *matTreeNodeDef="let node; when: hasNoContent" matTreeNodePadding>
-      <button mat-icon-button disabled></button>
-      <mat-form-field>
-        <input matInput #itemValue placeholder="New item...">
-      </mat-form-field>
-      <button mat-button (click)="saveNode(node, itemValue.value)">Save</button>
-    </mat-tree-node>
+      <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+        <button mat-icon-button matTreeNodeToggle>
+          <mat-icon class="mat-icon-rtl-mirror">
+            {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+          </mat-icon>
+        </button>
+        <div class="branch-card">
+          <mat-card class="card-border">
+            <mat-card-header>
+              <div mat-card-avatar class="example-header-image"></div>
+              <mat-card-title>
+                <div class="row">
+                  <div class="col">
+                    <span>{{node.item.name + ' ' + node.item.surname}}</span>
+                  </div>
+                </div>
+              </mat-card-title>
+              <mat-card-subtitle>{{'(' + (node.item.birthdate | fireBaseTimestampToDate | date) + ')'}}
+              </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="row">
+                <div class="col">
+                  <span>Spouse: {{node.item.spouse.name + ' ' + node.item.spouse.surname}}</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <span>Gender: {{node.item.gender}}</span>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </mat-tree-node>
+    </mat-tree>
 
-    <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
-      <button mat-icon-button matTreeNodeToggle
-              [attr.aria-label]="'toggle ' + node.filename">
-        <mat-icon class="mat-icon-rtl-mirror">
-          {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-        </mat-icon>
-      </button>
-      <mat-checkbox [checked]="descendantsAllSelected(node)"
-                    [indeterminate]="descendantsPartiallySelected(node)"
-                    (change)="todoItemSelectionToggle(node)">{{node.item}}
-      </mat-checkbox>
-      <button mat-icon-button (click)="addNewItem(node)">
-        <mat-icon>add</mat-icon>
-      </button>
-    </mat-tree-node>
-  </mat-tree>
-
-  <form (submit)="onSubmit(model); displayForm = !displayForm" *ngIf="displayForm">
-    <div class="row">
-      <div class="col">
-        <mat-form-field>
-          <input matInput placeholder="Name" [(ngModel)]="model.name" name="first">
-        </mat-form-field>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <mat-form-field>
-          <input matInput placeholder="Surname" [(ngModel)]="model.surName" name="last">
-        </mat-form-field>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <mat-form-field>
-          <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <button mat-stroked-button type="submit">Submit</button>
-      </div>
-    </div>
-  </form>
+    <!--<form (submit)="onSubmit(model); displayForm = !displayForm" *ngIf="displayForm">-->
+    <!--<div class="row">-->
+    <!--<div class="col">-->
+    <!--<mat-form-field>-->
+    <!--<input matInput placeholder="Name" [(ngModel)]="model.name" name="first">-->
+    <!--</mat-form-field>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+    <!--<div class="col">-->
+    <!--<mat-form-field>-->
+    <!--<input matInput placeholder="Surname" [(ngModel)]="model.surName" name="last">-->
+    <!--</mat-form-field>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+    <!--<div class="col">-->
+    <!--<mat-form-field>-->
+    <!--<input matInput [matDatepicker]="picker" placeholder="Choose a date">-->
+    <!--<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+    <!--<mat-datepicker #picker></mat-datepicker>-->
+    <!--</mat-form-field>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+    <!--<div class="col">-->
+    <!--<button mat-stroked-button type="submit">Submit</button>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</form>-->
+  </div>
 </div>
-
