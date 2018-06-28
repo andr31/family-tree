@@ -7,6 +7,7 @@ import {FamilyNode} from '../family-database-utility/FamilyNode';
 import {FamilyFlatNode} from '../family-database-utility/FamilyFlatNode';
 import {MatDialog} from '@angular/material';
 import {ModalEditComponent} from '../modals/modal-edit.component';
+import {FamilyNodeDetails} from '../family-database-utility/FamilyNodeDetails';
 
 @Component({
   selector: 'app-branch-creator',
@@ -41,10 +42,10 @@ export class BranchCreatorComponent implements OnInit {
     database.dataChange.subscribe(data => this.dataSource.data = data);
   }
 
-  openDialog(): void {
+  openDialog(item: FamilyNodeDetails): void {
     const dialogRef = this.dialog.open(ModalEditComponent, {
       width: '250px',
-      data: {name: this.name, animal: this.animal}
+      data: item
     });
 
     dialogRef.afterClosed().subscribe(result => {

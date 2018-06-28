@@ -1,10 +1,6 @@
 import {Component, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-
-export interface DialogData {
-  animal: string;
-  name: string;
-}
+import {DialogPosition, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {FamilyNodeDetails} from '../family-database-utility/FamilyNodeDetails';
 
 @Component({
   selector: 'app-modal-edit-dialog',
@@ -14,7 +10,7 @@ export class ModalEditComponent {
 
   constructor(
     public dialogRef: MatDialogRef<ModalEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+    @Inject(MAT_DIALOG_DATA) public data: FamilyNodeDetails) {
   }
 
   onNoClick(): void {
