@@ -1,16 +1,15 @@
-<!--<p>TREE SIMULATOR PAGE</p>-->
-<!--<button mat-raised-button (click)="branchCreator.displayForm = !branchCreator.displayForm">Create branch</button>-->
 <div class="container tree-creator">
   <div class="flex-container">
     <button mat-raised-button color="primary" (click)="displayStepper = !displayStepper">Start your new family tree here
     </button>
   </div>
   <div class="row">
-    <div class="col" *ngIf="displayStepper">
+    <div *ngIf="displayStepper">
       <mat-horizontal-stepper [linear]="true" #stepper>
-        <mat-step [stepControl]="selfFormGroup">
-          <form [formGroup]="selfFormGroup">
-            <ng-template matStepLabel>You</ng-template>
+        <mat-step [stepControl]="getFormName(form.formName)" *ngFor="let form of dataForms; let i=index"
+                  [optional]="form.isOptional">
+          <form [formGroup]="getFormName(form.formName)">
+            <ng-template matStepLabel>{{form.stepName}}</ng-template>
             <div class="row">
               <div class="col">
                 <div class="row">
@@ -50,238 +49,11 @@
                 <div class="row">
                   <div class="col">
                     <mat-form-field>
-                      <input matInput [matDatepicker]="picker" placeholder="Birth date" formControlName="birthDate"
-                             required>
-                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                      <mat-datepicker #picker></mat-datepicker>
-                    </mat-form-field>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div>
-              <button mat-button matStepperNext>Next</button>
-            </div>
-          </form>
-        </mat-step>
-        <mat-step [stepControl]="motherFormGroup">
-          <form [formGroup]="motherFormGroup">
-            <ng-template matStepLabel>Your mother</ng-template>
-            <div class="row">
-              <div class="col">
-                <div class="row">
-                  <div class="col">
-                    <mat-form-field>
-                      <input matInput placeholder="First Name" formControlName="firstName" required>
-                    </mat-form-field>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <mat-form-field>
-                      <input matInput placeholder="Last Name" formControlName="lastName" required>
-                    </mat-form-field>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-1">
-                    <label>Gender:</label>
-                  </div>
-                  <div class="col">
-                    <mat-radio-group formControlName="gender" required>
-                      <div class="row">
-                        <div class="col">
-                          <mat-radio-button class="example-radio-button" value="male">Male
-                          </mat-radio-button>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                          <mat-radio-button checked="true" value="female">Female</mat-radio-button>
-                        </div>
-                      </div>
-                    </mat-radio-group>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <mat-form-field>
-                      <input matInput [matDatepicker]="motherPicker" placeholder="Birth date"
+                      <input matInput [matDatepicker]="i" placeholder="Birth date"
                              formControlName="birthDate"
                              required>
-                      <mat-datepicker-toggle matSuffix [for]="motherPicker"></mat-datepicker-toggle>
-                      <mat-datepicker #motherPicker></mat-datepicker>
-                    </mat-form-field>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div>
-              <button mat-button matStepperNext>Next</button>
-            </div>
-          </form>
-        </mat-step>
-        <mat-step [stepControl]="fatherFormGroup">
-          <form [formGroup]="fatherFormGroup">
-            <ng-template matStepLabel>Your father</ng-template>
-            <div class="row">
-              <div class="col">
-                <div class="row">
-                  <div class="col">
-                    <mat-form-field>
-                      <input matInput placeholder="First Name" formControlName="firstName" required>
-                    </mat-form-field>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <mat-form-field>
-                      <input matInput placeholder="Last Name" formControlName="lastName" required>
-                    </mat-form-field>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-1">
-                    <label>Gender:</label>
-                  </div>
-                  <div class="col">
-                    <mat-radio-group formControlName="gender" required>
-                      <div class="row">
-                        <div class="col">
-                          <mat-radio-button checked="true" class="example-radio-button" value="male">Male
-                          </mat-radio-button>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                          <mat-radio-button value="female">Female</mat-radio-button>
-                        </div>
-                      </div>
-                    </mat-radio-group>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <mat-form-field>
-                      <input matInput [matDatepicker]="fatherPicker" placeholder="Birth date"
-                             formControlName="birthDate"
-                             required>
-                      <mat-datepicker-toggle matSuffix [for]="fatherPicker"></mat-datepicker-toggle>
-                      <mat-datepicker #fatherPicker></mat-datepicker>
-                    </mat-form-field>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div>
-              <button mat-button matStepperNext>Next</button>
-            </div>
-          </form>
-        </mat-step>
-        <mat-step [stepControl]="grandMotherFormGroup" [optional]="true">
-          <form [formGroup]="grandMotherFormGroup">
-            <ng-template matStepLabel>Your grand mother</ng-template>
-            <div class="row">
-              <div class="col">
-                <div class="row">
-                  <div class="col">
-                    <mat-form-field>
-                      <input matInput placeholder="First Name" formControlName="firstName" required>
-                    </mat-form-field>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <mat-form-field>
-                      <input matInput placeholder="Last Name" formControlName="lastName" required>
-                    </mat-form-field>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-1">
-                    <label>Gender:</label>
-                  </div>
-                  <div class="col">
-                    <mat-radio-group formControlName="gender" required>
-                      <div class="row">
-                        <div class="col">
-                          <mat-radio-button class="example-radio-button" value="male">Male
-                          </mat-radio-button>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                          <mat-radio-button checked="true" value="female">Female</mat-radio-button>
-                        </div>
-                      </div>
-                    </mat-radio-group>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <mat-form-field>
-                      <input matInput [matDatepicker]="grandMotherPicker" placeholder="Birth date"
-                             formControlName="birthDate"
-                             required>
-                      <mat-datepicker-toggle matSuffix [for]="grandMotherPicker"></mat-datepicker-toggle>
-                      <mat-datepicker #grandMotherPicker></mat-datepicker>
-                    </mat-form-field>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div>
-              <button mat-button matStepperNext>Next</button>
-            </div>
-          </form>
-        </mat-step>
-        <mat-step [stepControl]="grandFatherFormGroup" [optional]="true">
-          <form [formGroup]="grandFatherFormGroup">
-            <ng-template matStepLabel>Your grand father</ng-template>
-            <div class="row">
-              <div class="col">
-                <div class="row">
-                  <div class="col">
-                    <mat-form-field>
-                      <input matInput placeholder="First Name" formControlName="firstName" required>
-                    </mat-form-field>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <mat-form-field>
-                      <input matInput placeholder="Last Name" formControlName="lastName" required>
-                    </mat-form-field>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-1">
-                    <label>Gender:</label>
-                  </div>
-                  <div class="col">
-                    <mat-radio-group formControlName="gender" required>
-                      <div class="row">
-                        <div class="col">
-                          <mat-radio-button checked="true" class="example-radio-button" value="male">Male
-                          </mat-radio-button>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                          <mat-radio-button value="female">Female</mat-radio-button>
-                        </div>
-                      </div>
-                    </mat-radio-group>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <mat-form-field>
-                      <input matInput [matDatepicker]="grandFatherPicker" placeholder="Birth date"
-                             formControlName="birthDate"
-                             required>
-                      <mat-datepicker-toggle matSuffix [for]="grandFatherPicker"></mat-datepicker-toggle>
-                      <mat-datepicker #grandFatherPicker></mat-datepicker>
+                      <mat-datepicker-toggle matSuffix [for]="i"></mat-datepicker-toggle>
+                      <mat-datepicker #i></mat-datepicker>
                     </mat-form-field>
                   </div>
                 </div>

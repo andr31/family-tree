@@ -15,6 +15,7 @@ import {AngularFireModule} from 'angularfire2';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {FireBaseTimestampToDatePipe} from './pipes/firebase-timestamp-to-date.pipe';
 import {ModalEditComponent} from './modals/modal-edit.component';
+import {CommonModule} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import {ModalEditComponent} from './modals/modal-edit.component';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    CommonModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(firebase.firebaseConfig),
     AngularFirestoreModule,

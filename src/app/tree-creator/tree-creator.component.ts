@@ -13,13 +13,33 @@ import {FamilyNodeDetails} from '../family-database-utility/FamilyNodeDetails';
 })
 export class TreeCreatorComponent implements OnInit {
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
-  isLinear = false;
   selfFormGroup: FormGroup;
   motherFormGroup: FormGroup;
   fatherFormGroup: FormGroup;
   grandMotherFormGroup: FormGroup;
   grandFatherFormGroup: FormGroup;
   displayStepper: boolean;
+  dataForms = [{
+    formName: 'selfFormGroup',
+    stepName: 'You',
+    isOptional: false
+  }, {
+    formName: 'motherFormGroup',
+    stepName: 'Your mother',
+    isOptional: false
+  }, {
+    formName: 'fatherFormGroup',
+    stepName: 'Your father',
+    isOptional: false
+  }, {
+    formName: 'grandMotherFormGroup',
+    stepName: 'Your father\'\s mother',
+    isOptional: true
+  }, {
+    formName: 'grandFatherFormGroup',
+    stepName: 'Your father\'\s father',
+    isOptional: true
+  }];
 
   someMethod() {
     this.trigger.openMenu();
@@ -68,6 +88,20 @@ export class TreeCreatorComponent implements OnInit {
 
   createTree() {
     this.familyDb.insertItem(this.prepareNode()).then(() => this.router.navigate(['/my-branch']));
+  }
+
+  getFormName(item: string) {
+    if (item === 'selfFormGroup') {
+      return this.selfFormGroup;
+    } else if (item === 'motherFormGroup') {
+      return this.motherFormGroup;
+    } else if (item === 'fatherFormGroup') {
+      return this.fatherFormGroup;
+    } else if (item === 'grandMotherFormGroup') {
+      return this.grandMotherFormGroup;
+    } else if (item === 'grandFatherFormGroup') {
+      return this.grandFatherFormGroup;
+    }
   }
 
   private prepareNode() {
